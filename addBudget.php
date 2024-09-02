@@ -6,7 +6,7 @@
     <h1 class="title-text">Add a Budget</h1>
 
     <div class="col-lg-6 bg-dark text-light rounded-5 mx-auto p-4">
-        <form id="addBudget" class="text-center" novalidate>
+        <form id="addBudget" class="text-center">
             <?php include 'template/budgetForm.php'; ?>
             <button type="submit">Add Budget</button>
         </form>

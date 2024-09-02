@@ -19,10 +19,10 @@ class Category extends Dbh {
        return $stmt->fetchAll();
     }
 
-     public function add($newCategory) {
-         $sql = "INSERT INTO category(name) VALUES (?)";
+     public function add($newCategory, $in_out) {
+         $sql = "INSERT INTO category(name, in_out) VALUES (?, ?)";
          $stmt = $this->connect()->prepare($sql);
-         $stmt->execute([$newCategory]);
+         $stmt->execute([$newCategory, $in_out]);
      }
 
      public function update($id, $name, $in_out) {

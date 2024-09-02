@@ -39,12 +39,13 @@ class CategoryController extends Category {
             $sanitizer = new Sanitize();
             $name = $sanitizer->sanitize_input($sanitized_name);
             $name = strtoupper($name);
+            $in_out = $_POST['in_out'];
             // Example validation
             if (empty($name)) {
                 echo 'Please fill in all fields.';
             } else {
                 // Process the data (e.g., save to database, send email, etc.)
-                $this->add($name);
+                $this->add($name, $in_out);
                 $response = ['success' => true];
                 header('Content-Type: application/json');
                 echo json_encode($response);

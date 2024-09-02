@@ -26,7 +26,7 @@
 </div>
 <div class="mb-3">
   <label for="note" class="form-label">Note</label>
-  <input type="text" class="form-control" id="note" name="note" type="text" minlength="2" maxlength="20">
+  <input class="form-control" id="note" name="note" type="text" minlength="2" maxlength="20">
 </div>
 <div class="mb-3">
   <label for="desc" class="form-label">Description</label>
