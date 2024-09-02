@@ -1,14 +1,13 @@
 <div class="mb-3">
     <label for="in_out" class="form-label">Income/Expense</label>
     <select id="in_out" name="in_out" class="form-select">
-        <!-- <option selected>Select Income/Expense</option> -->
         <option value=1>Income</option>
         <option selected value=0>Expense</option>
     </select>
 </div>
 <div class="mb-3">
     <label for="datetime" class="form-label">Date and Time</label>
-    <input id="datetime" name="datetime" type="datetime-local" value="" required />
+    <input id="datetime" name="datetime" type="text" value="" required class="form-control"/>
 </div>
 <div class="mb-3">
     <label for="account" class="form-label">Account</label>
@@ -116,15 +115,30 @@
         });
 
         //set default in_out to expense
+
+        //datetime picker
+        $(function() {
+            $('#datetime').daterangepicker({
+                timePicker: true,
+                singleDatePicker: true,
+                showDropdowns: true,
+                startDate: moment(),
+                locale: {
+                    format: 'MMMM D, YYYY hh:mm A'
+                }
+            // }, function(start, end, label) {
+            //     var years = moment().diff(start, 'years');
+            });
+        });
         
         //set current date
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-        var day = String(now.getDate()).padStart(2, '0');
-        var hours = String(now.getHours()).padStart(2, '0');
-        var minutes = String(now.getMinutes()).padStart(2, '0');
-        var formattedDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
-        $('#datetime').val(formattedDateTime);
+        // var now = new Date();
+        // var year = now.getFullYear();
+        // var month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        // var day = String(now.getDate()).padStart(2, '0');
+        // var hours = String(now.getHours()).padStart(2, '0');
+        // var minutes = String(now.getMinutes()).padStart(2, '0');
+        // var formattedDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+        // $('#datetime').val(formattedDateTime);
     })
 </script>
