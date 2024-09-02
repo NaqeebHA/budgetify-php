@@ -1,0 +1,43 @@
+body {
+    padding-top: 80px;
+    background-color: rgb(180, 0, 0);
+}
+.navbar {background-color: black;}
+.navbar-brand {
+    color:rgb(180, 0, 0);
+    font-weight: bolder;
+}
+.navbar-brand:hover {
+    color:rgb(180, 0, 0);
+    background-color: white;
+}
+/* .nav-link {
+    color: rgb(180, 0, 0);
+} */
+.title-text{
+    color: white;
+    text-align: center;
+}
+
+#addBudgetBtn {
+    background-color: black;
+    color:rgb(180, 0, 0);
+    font-weight: bolder;
+    text-align: center;
+    padding: auto;
+    outline: solid rgb(180, 0, 0) 1px;
+}
+#addBudgetBtn:hover {
+    color:rgb(180, 0, 0);
+    background-color: white;
+}
+
+.table {
+    background-color: black;
+}
+
+footer {
+    text-align: center;
+    padding: 5px;
+    color: black;
+  }
