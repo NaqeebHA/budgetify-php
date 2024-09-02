@@ -202,7 +202,7 @@
 
                         $noExpenseFound.empty();
                         $expenseTableHead.empty(); 
-                        $expenseTableHead.append('<tr><th>Category</th><th>expensePercentage</th><th>Amount</th></tr>');
+                        $expenseTableHead.append('<tr><th>Category</th><th>Percentage</th><th>Amount</th></tr>');
                         $expenseTableBody.empty(); 
 
                         expensePercentageCount = 0;
