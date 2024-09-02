@@ -117,32 +117,17 @@
                         } else {
                             $.each(data, function(index, budget) {
                                 var amount_color = (budget.in_out == 0) ? '<td class="text-danger">' : '<td class="text-primary">';
-                                var row = (budget.in_out == 0) ? 
-                                (
+                                var row =  
                                     '<tr>' +
                                     '<td>' + budget.date + '</td>' +
                                     '<td>' + accounts[budget.account_id] + '</td>' +
                                     '<td>' + categories[budget.category_id] + '</td>' +
                                     '<td>' + budget.note + '</td>' + 
-                                    '<td class="text-danger">' + budget.amount + '</td>' +
+                                    amount_color + budget.amount + '</td>' +
                                     '<td>' +
                                         "<a href=\'budget-details-page.php?id="+ budget.id +"\'><i class=\"bi bi-eye\"></i></a>" +
                                     '</td>' +
-                                    '</tr>'
-                                )
-                                : 
-                                (
-                                    '<tr>' +
-                                    '<td>' + budget.date + '</td>' +
-                                    '<td>' + accounts[budget.account_id] + '</td>' +
-                                    '<td>' + categories[budget.category_id] + '</td>' +
-                                    '<td>' + budget.note + '</td>' + 
-                                    '<td class="text-primary">' + budget.amount + '</td>' +
-                                    '<td>' +
-                                        "<a href=\'budget-details-page.php?id="+ budget.id +"\'><i class=\"bi bi-eye\"></i></a>" +
-                                    '</td>' +
-                                    '</tr>'
-                                );
+                                    '</tr>';
                                 $tableBody.append(row);
                             });
                         }
@@ -151,10 +136,12 @@
                         console.error('Request failed:', error);
                     }
                 });
+                console.log(categories);
             }
 
             // Fetch data when the page loads
             fetchData();
+            
         });
 </script>
 

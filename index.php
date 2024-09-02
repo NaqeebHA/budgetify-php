@@ -171,6 +171,8 @@
             var incomeCategories = [];
             var incomePercentage = [];
             var incomeTotals = [];
+            var colors = ['#ff6384', '#36a2eb', '#ffce56', '#cc65fe', 'green', 'red', 'blue', 'yellow'];
+
 
             // start expense ajax and table
             $.ajax({
@@ -210,7 +212,7 @@
                             expenseTotals.push(Number(budget.total));
                             expensePercentage.push(Math.round((budget.total*100)/sumTotal));
                             var row = '<tr>' +
-                                '<td>' + budget.category + '</td>' +
+                                '<td style="background-color:' + colors[expensePercentageCount] + '">' + budget.category + '</td>' +
                                 '<td>' + expensePercentage[expensePercentageCount] + '%</td>' +
                                 '<td>' + budget.total + '</td>' +
                                 '</tr>';
@@ -231,7 +233,6 @@
                 if (expenseChart) {
                     expenseChart.destroy();
                 }
-                var colors = ['#ff6384', '#36a2eb', '#ffce56', '#cc65fe', 'red', 'blue', 'yellow'];
                 var shortenedColors = colors.slice(0,4);
                 expenseChart = new Chart(ctx, {
                     type: 'pie',
@@ -240,7 +241,7 @@
                         datasets: [{
                             label: 'My Pie Chart',
                             data: expenseTotals,
-                            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#cc65fe']
+                            backgroundColor: colors.slice(0, expenseCategories.length)
                         }]
                     },
                     options: {
@@ -299,7 +300,7 @@
                             incomeTotals.push(Number(budget.total));
                             incomePercentage.push(Math.round((budget.total*100)/sumTotal));
                             var row = '<tr>' +
-                                '<td>' + budget.category + '</td>' +
+                                '<td style="background-color:' + colors[incomePercentageCount] + '">' + budget.category + '</td>' +
                                 '<td>' + incomePercentage[incomePercentageCount] + '%</td>' +
                                 '<td>' + budget.total + '</td>' +
                                 '</tr>';
@@ -320,8 +321,6 @@
                 if (incomeChart) {
                     incomeChart.destroy();
                 }
-                var colors = ['#ff6384', '#36a2eb', '#ffce56', '#cc65fe', 'red', 'blue', 'yellow'];
-                var shortenedColors = colors.slice(0,4);
                 incomeChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
@@ -329,7 +328,7 @@
                         datasets: [{
                             label: 'My Pie Chart',
                             data: incomeTotals,
-                            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#cc65fe']
+                            backgroundColor: colors.slice(0, incomeCategories.length)
                         }]
                     },
                     options: {
