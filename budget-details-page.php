@@ -21,6 +21,62 @@
 <script>
     $(document).ready(function() {
 
+        // var selectedInOut;
+        function changeCategory(in_out) {
+            // $('#in_out').change(function() {
+                // var selectedInOut = $(this).val();
+            
+                if (in_out == "1") {
+                    $('#category').empty();
+                    // get categories in
+                    $.ajax({
+                        url: 'requestHandler.php?action=getCategoryIn',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data)  {
+                            var $select = $('#category');
+                            $select.empty(); // Clear previous options
+                            if (data.error) {
+                                console.error('Error:', data.error);
+                            } else {
+                                $select.append('<option value="">Select a category</option>');
+                                $.each(data, function(index, option) {
+                                    $select.append('<option value="' + option.id + '">' + option.name + '</option>');
+                                });
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error('Failed to fetch data:', textStatus, errorThrown);
+                        }
+                    });
+                } else {
+                    $('#category').empty();
+                    // get categories out
+                    $.ajax({
+                        url: 'requestHandler.php?action=getCategoryOut',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data)  {
+                            var $select = $('#category');
+                            $select.empty(); // Clear previous options
+                            if (data.error) {
+                                console.error('Error:', data.error);
+                            } else {
+                                $select.append('<option value="">Select a category</option>');
+                                $.each(data, function(index, option) {
+                                    $select.append('<option value="' + option.id + '">' + option.name + '</option>');
+                                });
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error('Failed to fetch data:', textStatus, errorThrown);
+                        }
+                    });
+                }
+            // });
+        }
+        
+
         var urlParams = new URLSearchParams(window.location.search);
         var paramId = urlParams.get('id');
 
@@ -37,7 +93,9 @@
                         var formattedDateTime = dateTime.toISOString().slice(0, 16);
                         // Populate the form fields
                         $('#id').val(response.id);
-                        $('#in_out').val(response.in_out).change();
+                        $('#in_out').val(response.in_out);
+                        changeCategory($('#in_out').val());
+                        // selectedInOut = (response.in_out);
                         $('#datetime').val(formattedDateTime);
                         $('#account').val(response.account_id);
                         $('#category').val(response.category_id);

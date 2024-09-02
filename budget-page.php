@@ -116,6 +116,7 @@
                             console.error('Error:', data.error);
                         } else {
                             $.each(data, function(index, budget) {
+                                var amount_color = (budget.in_out == 0) ? '<td class="text-danger">' : '<td class="text-primary">';
                                 var row = (budget.in_out == 0) ? 
                                 (
                                     '<tr>' +

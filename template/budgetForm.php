@@ -5,9 +5,13 @@
         <option selected value=0>Expense</option>
     </select>
 </div>
+<!-- <div class="mb-3">
+    <label for="daterange" class="form-label">Date and Time</label>
+    <input id="daterange" type="text" value="" required class="form-control"/>
+</div> -->
 <div class="mb-3">
     <label for="datetime" class="form-label">Date and Time</label>
-    <input id="datetime" name="datetime" type="text" value="" required class="form-control"/>
+    <input id="datetime" type="datetime-local" name="datetime" value="" required class="form-control"/>
 </div>
 <div class="mb-3">
     <label for="account" class="form-label">Account</label>
@@ -61,84 +65,29 @@
             }
         });
 
-        
-        $('#in_out').change(function() {
-            var selectedInOut = $(this).val();
-        
-            if (selectedInOut == "1") {
-                $('#category').empty();
-                //get categories in
-                $.ajax({
-                    url: 'requestHandler.php?action=getCategoryIn',
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(data)  {
-                        var $select = $('#category');
-                        $select.empty(); // Clear previous options
-                        if (data.error) {
-                            console.error('Error:', data.error);
-                        } else {
-                            $select.append('<option value="">Select a category</option>');
-                            $.each(data, function(index, option) {
-                                $select.append('<option value="' + option.id + '">' + option.name + '</option>');
-                            });
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Failed to fetch data:', textStatus, errorThrown);
-                    }
-                });
-            } else {
-                $('#category').empty();
-                //get categories out
-                $.ajax({
-                    url: 'requestHandler.php?action=getCategoryOut',
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(data)  {
-                        var $select = $('#category');
-                        $select.empty(); // Clear previous options
-                        if (data.error) {
-                            console.error('Error:', data.error);
-                        } else {
-                            $select.append('<option value="">Select a category</option>');
-                            $.each(data, function(index, option) {
-                                $select.append('<option value="' + option.id + '">' + option.name + '</option>');
-                            });
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('Failed to fetch data:', textStatus, errorThrown);
-                    }
-                });
-            }
-        });
+        // //datetime picker
+        // $(function() {
+        //     $('#daterange').daterangepicker({
+        //         timePicker: true,
+        //         singleDatePicker: true,
+        //         showDropdowns: true,
+        //         startDate: moment(),
+        //         // autoApply: true,
+        //         // opens: center,
+        //         locale: {
+        //             format: 'MMMM D, YYYY hh:mm A'
+        //         }
+        //     });
+        // });
 
-        //set default in_out to expense
+        // $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+        //     var date = picker.startDate.format('YYYY-MM-DD') + 'T' + picker.startDate.format('hh:mm');
+        //     $('#datetime').val(date);
+        // });
 
-        //datetime picker
-        $(function() {
-            $('#datetime').daterangepicker({
-                timePicker: true,
-                singleDatePicker: true,
-                showDropdowns: true,
-                startDate: moment(),
-                locale: {
-                    format: 'MMMM D, YYYY hh:mm A'
-                }
-            // }, function(start, end, label) {
-            //     var years = moment().diff(start, 'years');
-            });
-        });
-        
-        //set current date
-        // var now = new Date();
-        // var year = now.getFullYear();
-        // var month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-        // var day = String(now.getDate()).padStart(2, '0');
-        // var hours = String(now.getHours()).padStart(2, '0');
-        // var minutes = String(now.getMinutes()).padStart(2, '0');
-        // var formattedDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
-        // $('#datetime').val(formattedDateTime);
+        // $('#daterange').change(function(ev, picker) {
+        //     var date = picker.startDate.format('YYYY-MM-DD') + 'T' + picker.startDate.format('hh:mm');
+        //     $('#datetime').val(date);
+        // });
     })
 </script>
