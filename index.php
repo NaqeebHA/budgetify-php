@@ -5,8 +5,9 @@
 
     <div id="period-selector">
         <div id="reportrange" class="btn btn-light">
-            <i class="fa fa-calendar"></i>&nbsp;
-            <span></span> <i class="fa fa-caret-down"></i>
+            <i class="bi bi-calendar-range-fill"></i>
+            <span></span> 
+            <i class="bi bi-caret-down-fill"></i>
         </div>
     </div>
 
@@ -138,12 +139,14 @@
 
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            fetchBudgetAnalytics(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
         }
 
         $('#reportrange').daterangepicker({
             startDate: start,
             endDate: end,
             showDropdowns: true,
+            opens: 'left',
             ranges: {
             'Today': [moment(), moment()],
             // 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -248,7 +251,7 @@
                         responsive: true,
                         plugins: {
                             legend: {
-                                position: 'top',
+                                position: 'bottom',
                             },
                             tooltip: {
                                 callbacks: {
@@ -335,7 +338,7 @@
                         responsive: true,
                         plugins: {
                             legend: {
-                                position: 'top',
+                                position: 'bottom',
                             },
                             tooltip: {
                                 callbacks: {
