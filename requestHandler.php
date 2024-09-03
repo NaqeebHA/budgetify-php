@@ -38,6 +38,9 @@ if ($action === 'addCategory') {
 } else if ($action === 'editBudget') {
     $controller = new BudgetController();
     $controller->editBudget($id);
+} else if ($action === 'removeBudgetAttachment') {
+    $controller = new BudgetController();
+    $controller->removeAttachment($id);    
 } else if ($action === 'deleteBudget') {
     $controller = new BudgetController();
     $controller->deleteBudget($id);

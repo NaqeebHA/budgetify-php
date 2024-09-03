@@ -7,25 +7,25 @@
     <h1 class="title-text">Edit Budget</h1>
 
     <div class="col-lg-6 bg-dark text-light rounded-5 mx-auto p-4">
-        <form id="editBudget" class="text-center">
+        <form id="editBudget" class="text-center" enctype="multipart/form-data">
             <label for="id">Id: </label><br>
             <input id="id" name="id" type="number" readonly /><br>
             <?php include 'template/budgetForm.php'; ?>
-            <button type="submit" class="btn btn-primary">Edit</button>
+            <div id=imgDiv class="mb-3">
+                <img id="attachmentPhoto" class="rounded">
+            </div>
+            <button id="submitEditBudget" class="btn btn-primary">Edit</button>
             <button id="deleteBudget" class="btn btn-danger">Delete</button>
         </form>
     </div>
+    
 </div>
 <div id="response"></div>
 
 <script>
     $(document).ready(function() {
 
-        // var selectedInOut;
         function changeCategory(in_out) {
-            // $('#in_out').change(function() {
-                // var selectedInOut = $(this).val();
-            
                 if (in_out == "1") {
                     $('#category').empty();
                     // get categories in
@@ -95,14 +95,38 @@
                         $('#id').val(response.id);
                         $('#in_out').val(response.in_out);
                         changeCategory($('#in_out').val());
-                        // selectedInOut = (response.in_out);
                         $('#datetime').val(formattedDateTime);
                         $('#account').val(response.account_id);
                         $('#category').val(response.category_id);
                         $('#amount').val(response.amount);
                         $('#note').val(response.note);
                         $('#desc').val(response.description);
-                        $('#attachment').val(response.attachment);
+                        if ( response.attachment) {
+                            $('#attachmentPhoto').attr({
+                                'src': response.attachment,
+                                'alt': response.note,
+                            });
+                            $('#imgDiv').append('<a id="removeAttachment" class="btn btn-warning">Delete Image</a>');
+                            $('#removeAttachment').click(function(ev) {
+                                ev.preventDefault();
+                                $.ajax({
+                                    type: "POST",
+                                    url: "requestHandler.php?action=removeBudgetAttachment&id=" + paramId,
+                                    data: paramId,
+                                    success: function(response) {
+                                        if (response.success) {
+                                            window.location.href = '/budget-details-page.php?id=' + paramId;
+                                            alert('Attachment removed successfully')
+                                        } else {
+                                            alert('There was an error!');
+                                        }
+                                    },
+                                    error: function() {
+                                        $("#response").html("<p>An error occured.</p>");
+                                    } 
+                                });
+                            })   
+                        }
                     }
                 },
                 error: function(xhr, status, error) {
@@ -114,16 +138,20 @@
             // Fetch data when the page loads
             fetchData();
      
+            
 
-        $('#editBudget').submit(function(ev) {
+        $('#submitEditBudget').click(function(ev) {
             ev.preventDefault();
 
-            var formData = $(this).serialize();
+            var formData = new FormData($('#editBudget')[0]);
 
             $.ajax({
                 type: "POST",
                 url: "requestHandler.php?action=editBudget&id=" + paramId,
                 data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     if (response.success) {
                         window.location.href = '/budget-details-page.php?id=' + paramId;

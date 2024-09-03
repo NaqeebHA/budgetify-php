@@ -6,9 +6,9 @@
     <h1 class="title-text">Add a Budget</h1>
 
     <div class="col-lg-6 bg-dark text-light rounded-5 mx-auto p-4">
-        <form id="addBudget" class="text-center">
+        <form id="addBudget" class="text-center" enctype="multipart/form-data">
             <?php include 'template/budgetForm.php'; ?>
-            <button type="submit">Add Budget</button>
+            <button id="submitAddBudget" type="button">Add Budget</button>
         </form>
     </div>
         
@@ -84,20 +84,21 @@
         var formattedDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
         $('#datetime').val(formattedDateTime);
         
-        $('#addBudget').submit(function(ev) {
-            ev.preventDefault();
-
-            var formData = $(this).serialize();
-
+        $('#submitAddBudget').click(function(ev) {
+            ev.preventDefault;
+            var formData = new FormData($('#addBudget')[0]);
             $.ajax({
                 type: "POST",
                 url: "requestHandler.php?action=addBudget",
                 data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
                 success: function(response) {
-                    if (response.success) {
-                        window.location.href = '/budget-page.php';
+                    if (response.error) {
+                        alert(response.error);
                     } else {
-                        alert('There was an error!');
+                        window.location.href = '/budget-page.php';
                     }
                 },
                 error: function() {

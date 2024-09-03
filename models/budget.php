@@ -103,9 +103,21 @@ class Budget extends Dbh {
         return $stmt->execute([$id]);
     }
 
+    protected function deleteAttachment($id) {
+        $sql = "UPDATE `budget` SET attachment = NULL WHERE `id` = ?";
+        $stmt = $this->connect()->prepare($sql);
+        return $stmt->execute([$id]);
+    }
+
     protected function update($id, $account, $in_out, $category, $amount, $date, $note, $desc, $attachment) {
         $sql = "UPDATE `budget` SET account_id = ?, in_out = ?, category_id = ?, amount = ?, date = ?, note = ?, description = ?, attachment = ? WHERE `id` = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$account, $in_out, $category, $amount, $date, $note, $desc, $attachment, $id]);
+    }
+
+    protected function updateWithoutAttachment($id, $account, $in_out, $category, $amount, $date, $note, $desc) {
+        $sql = "UPDATE `budget` SET account_id = ?, in_out = ?, category_id = ?, amount = ?, date = ?, note = ?, description = ? WHERE `id` = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$account, $in_out, $category, $amount, $date, $note, $desc, $id]);
     }
 }
