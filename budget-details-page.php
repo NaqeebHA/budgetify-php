@@ -12,7 +12,7 @@
             <input id="id" name="id" type="number" readonly /><br>
             <?php include 'template/budgetForm.php'; ?>
             <div id=imgDiv class="mb-3">
-                <img id="attachmentPhoto" class="rounded">
+                <img id="attachmentPhoto" class="rounded" style="width: 400px;">
             </div>
             <button id="submitEditBudget" class="btn btn-primary">Edit</button>
             <button id="deleteBudget" class="btn btn-danger">Delete</button>
