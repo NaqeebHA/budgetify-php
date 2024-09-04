@@ -40,7 +40,7 @@
             </map>
         </div>
         <div id="apparel-type-table" class="col">
-            <table id="apparel-table" class="table table-bordered table-dark bg-dark my-auto">
+            <table id="apparel-table" class="table table-bordered table-dark my-auto text-center">
                 <thead></thead>
                 <tbody></tbody>
             </table>
@@ -116,7 +116,7 @@
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
-                                '<td>' + apparel.note + '%</td>' +
+                                '<td>' + apparel.note + '</td>' +
                                 '<td>' + apparel.color + '</td>' +
                                 '<td>' +
                                     "<a href=\'apparel-details.php?id="+ apparel.id +"\'><i class=\"bi bi-eye\"></i></a>" +
@@ -154,7 +154,7 @@
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
-                                '<td>' + apparel.note + '%</td>' +
+                                '<td>' + apparel.note + '</td>' +
                                 '<td>' + apparel.color + '</td>' +
                                 '<td>' +
                                     "<a href=\'apparel-details.php?id="+ apparel.id +"\'><i class=\"bi bi-eye\"></i></a>" +
@@ -192,7 +192,7 @@
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
-                                '<td>' + apparel.note + '%</td>' +
+                                '<td>' + apparel.note + '</td>' +
                                 '<td>' + apparel.color + '</td>' +
                                 '<td>' +
                                     "<a href=\'apparel-details.php?id="+ apparel.id +"\'><i class=\"bi bi-eye\"></i></a>" +

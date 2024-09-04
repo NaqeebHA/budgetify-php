@@ -41,7 +41,7 @@
       <div class="collapse navbar-collapse float-center" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="budget-page.php">Budget</a>
+            <a class="nav-link" href="budget-page.php">Budget</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="apparel-page.php">Apparel</a>
@@ -54,4 +54,17 @@
       
     </div>
 </nav>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var currentPath = window.location.pathname.split("/").pop();
+
+    $('.nav-link').each(function () {
+      var linkPath = $(this).attr('href');
+      if (linkPath === currentPath) {
+        $(this).addClass('active');
+      }
+    });
+  });
+</script>
 
