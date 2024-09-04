@@ -48,15 +48,15 @@ class ApparelController extends Apparel {
         } 
     }
 
-    // public function getStatsTimeframe($in_out, $from, $to) {
-    //     header('Content-Type: application/json');
-    //     $item = $this->statsTimeframe($in_out, $from, $to);
-    //     if ($item) {
-    //        echo json_encode($item);
-    //     } else {
-    //         echo json_encode(["error" => "No Apparel found"]);
-    //     }
-    // }
+    public function getTypeStatsTimeframe($type_id, $from, $to) {
+        header('Content-Type: application/json');
+        $item = $this->byTypeStatsTimeframe($type_id, $from, $to);
+        if ($item) {
+           echo json_encode($item);
+        } else {
+            echo json_encode(["error" => "No apparel found"]);
+        }
+    }
 
     public function addApparel() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

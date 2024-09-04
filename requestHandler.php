@@ -10,6 +10,8 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : '';
 $in_out = isset($_GET['in_out']) ? intval($_GET['in_out']) : '';
 $date_from = isset($_GET['from']) ? $_GET['from'] : '';
 $date_to = isset($_GET['to']) ? $_GET['to'] : '';
+$type_id = isset($_GET['type']) ? intval($_GET['type']) : '';
+$className = isset($_GET['className']) ? intval($_GET['className']) : '';
 
 //category
 if ($action === 'addCategory') {
@@ -46,18 +48,53 @@ if ($action === 'addCategory') {
     $controller->deleteBudget($id);
 } else if ($action === 'analyticsBudget') {
     $controller = new BudgetController();
-    $controller->getStatsTimeframe($in_out, $date_from, $date_to);
+    $controller->getStatsTimeframe($type_id, $date_from, $date_to);
 } else if ($action === 'accountRange') {
     $controller = new BudgetController();
     $controller->getAccTimeframe($in_out, $date_from, $date_to);
-//account
-} else if ($action === 'getAccount') {
-    $controller = new AccountController();
-    $controller->getAll();
+
+//account, brand, style
+} else if ($action === 'getName') {
+    $controller = new NameController();
+    $controller->getAll($className);
+} else if ($action === 'addName') {
+    $controller = new NameController();
+    $controller->add($className);
+} else if ($action === 'updateName') {
+    $controller = new NameController();
+    $controller->update($className, $id);
+} else if ($action === 'deleteName') {
+    $controller = new NameController();
+    $controller->delete($className, $id);
+    
+
 //apparel
 } else if ($action === 'getByType') {
     $controller = new ApparelController();
     $controller->getAllByType($id);
+} else if ($action === 'getApparel') {
+    $controller = new ApparelController();
+    $controller->getAll();
+} else if ($action === 'getOneApparel') {
+    $controller = new ApparelController();
+    $controller->getOne($id);
+} else if ($action === 'addApparel') {
+    $controller = new ApparelController();
+    $controller->addApparel();
+} else if ($action === 'editApparel') {
+    $controller = new ApparelController();
+    $controller->editApparel($id);
+} else if ($action === 'removeApparelAttachment') {
+    $controller = new ApparelController();
+    $controller->removeAttachment($id);    
+} else if ($action === 'deleteApparel') {
+    $controller = new ApparelController();
+    $controller->deleteApparel($id);
+} else if ($action === 'analyticsApparel') {
+    $controller = new ApparelController();
+    $controller->getTypeStatsTimeframe($in_out, $date_from, $date_to);
+
+// else
 } else {
     echo 'Invalid action.';
 }

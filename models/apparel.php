@@ -21,6 +21,18 @@ class Apparel extends Dbh {
        return $stmt->fetch();
    }
 
+    protected function byTypeStatsTimeframe($type_id, $from, $to) {
+        $sql = "SELECT appType.name as 'type', COUNT(appType.name) as total FROM apparel app JOIN apparel_type appType 
+                ON app.type_id = appType.id 
+                WHERE DATE(app.purchased_date) BETWEEN ? AND ? 
+                AND app.type_id = ? 
+                GROUP BY 'type'
+                ORDER BY total DESC";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$from, $to, $type_id]);
+        return $stmt->fetchAll();
+    } 
+
     protected function add($name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget) {
         $sql = "INSERT INTO apparel(name, type_id, color, purchased_date, qty, price, brand_id, style_id, description, attachment, budget_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
