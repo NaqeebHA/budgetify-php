@@ -1,13 +1,23 @@
 <?php
 
-class BudgetController extends Budget {
+class ApparelController extends Apparel {
     public function getAll() {
         header('Content-Type: application/json');
         $item = $this->all();
         if ($item) {
            echo json_encode($item);
         } else {
-            echo json_encode(["error" => "No budget found"]);
+            echo json_encode(["error" => "No apparel found"]);
+        }
+    }
+
+    public function getAllByType($id) {
+        header('Content-Type: application/json');
+        $item = $this->byType($id);
+        if ($item) {
+           echo json_encode($item);
+        } else {
+            echo json_encode(["error" => "No apparel found for this type"]);
         }
     }
 
@@ -17,11 +27,11 @@ class BudgetController extends Budget {
         if ($item) {
            echo json_encode($item);
         } else {
-            echo json_encode(["error" => "No budget with id=$id found"]);
+            echo json_encode(["error" => "No apparel with id=$id found"]);
         }    
     }
 
-    public function deleteBudget($id) {
+    public function deleteApparel($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $this->delete($id);
@@ -38,27 +48,17 @@ class BudgetController extends Budget {
         } 
     }
 
-    public function getStatsTimeframe($in_out, $from, $to) {
-        header('Content-Type: application/json');
-        $item = $this->statsTimeframe($in_out, $from, $to);
-        if ($item) {
-           echo json_encode($item);
-        } else {
-            echo json_encode(["error" => "No budget found"]);
-        }
-    }
+    // public function getStatsTimeframe($in_out, $from, $to) {
+    //     header('Content-Type: application/json');
+    //     $item = $this->statsTimeframe($in_out, $from, $to);
+    //     if ($item) {
+    //        echo json_encode($item);
+    //     } else {
+    //         echo json_encode(["error" => "No Apparel found"]);
+    //     }
+    // }
 
-    public function getAccTimeframe($in_out, $from, $to) {
-        header('Content-Type: application/json');
-        $item = $this->listByAccountTimeframe($in_out, $from, $to);
-        if ($item) {
-           echo json_encode($item);
-        } else {
-            echo json_encode(["error" => "No budget found"]);
-        }
-    }
-
-    public function addBudget() {
+    public function addApparel() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $attachment = NULL;
             //process attachment
@@ -93,11 +93,11 @@ class BudgetController extends Budget {
                 $arr[$key] = $value;
             }
             try {
-                $this->add($arr['account'], $arr['in_out'], $arr['category'], $arr['amount'], $arr['datetime'], $arr['note'], $arr['desc'], $attachment);
+                $this->add($arr['name'], $arr['type'], $arr['color'], $arr['date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $attachment, $arr['budget']);
                 $response = ['success' => true];
             } catch (Exception $e) {
                 echo $e->getMessage();
-                $response = ['error' => 'Failed to add budget'];
+                $response = ['error' => 'Failed to add Apparel'];
             } finally {
                 header('Content-Type: application/json');
                 echo json_encode($response);
@@ -107,7 +107,7 @@ class BudgetController extends Budget {
         } 
     } 
 
-    public function editBudget($id) {
+    public function editApparel($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $attachment = NULL;
@@ -144,14 +144,14 @@ class BudgetController extends Budget {
             }
             try {
                 if ($attachment != NULL) {
-                    $this->update($id, $arr['account'], $arr['in_out'], $arr['category'], $arr['amount'], $arr['datetime'], $arr['note'], $arr['desc'], $attachment);
+                    $this->update($id, $arr['name'], $arr['type'], $arr['color'], $arr['date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $attachment, $arr['budget']);
                 } else {
-                    $this->updateWithoutAttachment($id, $arr['account'], $arr['in_out'], $arr['category'], $arr['amount'], $arr['datetime'], $arr['note'], $arr['desc']);
+                    $this->updateWithoutAttachment($id, $arr['name'], $arr['type'], $arr['color'], $arr['date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $arr['budget']);
                 }
                 $response = ['success' => true];
             } catch (Exception $e) {
                 echo $e->getMessage();
-                $response = ['error' => 'Failed to add budget'];
+                $response = ['error' => 'Failed to add Apparel'];
             } finally {
                 header('Content-Type: application/json');
                 echo json_encode($response);

@@ -48,16 +48,7 @@ class Budget extends Dbh {
                 WHERE b.in_out = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$in_out]);
-        return $stmt->fetch();
-    }
-
-    protected function totalByAccount($in_out, $account) {
-        $sql = "SELECT SUM(b.amount) as total FROM budget b
-                WHERE b.in_out = ? 
-                AND account_id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$in_out, $account]);
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     protected function totalTimeframe($in_out, $from, $to) {
@@ -66,6 +57,15 @@ class Budget extends Dbh {
                 AND account_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$from, $to, $in_out]);
+        return $stmt->fetchAll();
+    }
+
+    protected function totalByAccount($in_out, $account) {
+        $sql = "SELECT SUM(b.amount) as total FROM budget b
+                WHERE b.in_out = ? 
+                AND account_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$in_out, $account]);
         return $stmt->fetch();
     }
     
@@ -77,6 +77,17 @@ class Budget extends Dbh {
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$from, $to, $in_out, $account]);
         return $stmt->fetch();
+    }
+
+    protected function listByAccountTimeframe($in_out, $from, $to) {
+        $sql = "SELECT b.account_id as accountId, a.name as account, SUM(b.amount) as total FROM budget b
+                JOIN account a ON b.account_id = a.id
+                WHERE DATE(b.date) BETWEEN ? AND ? 
+                AND b.in_out = ?
+                GROUP BY accountId";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$from, $to, $in_out]);
+        return $stmt->fetchAll();
     }
 
     protected function statsTimeframe($in_out, $from, $to) {

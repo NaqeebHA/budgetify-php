@@ -29,12 +29,18 @@
                         </ul>
                         <div id="expense-tab">
                             <div class="row">
-                                <div class="col bg-dark mx-auto my-auto p-2">
+                                <div class="bg-dark mx-auto my-auto p-2 col-md-4">
                                     <div id="noExpenseFound" class="mx-auto my-auto"></div>
                                     <canvas id="expenseChart"></canvas>
                                 </div>
-                                <div class="col bg-dark mx-auto p-2">
+                                <div class="col bg-dark mx-auto p-2 col-md-4">
                                     <table id="expense-table" class="table table-bordered table-dark bg-dark my-auto">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col bg-dark mx-auto p-2 col-md-4">
+                                    <table id="expense-acc-table" class="table table-bordered table-dark bg-dark my-auto">
                                         <thead></thead>
                                         <tbody></tbody>
                                     </table>
@@ -43,12 +49,18 @@
                         </div>
                         <div id="income-tab">
                             <div class="row">
-                                <div class="col bg-dark mx-auto my-auto p-2">
+                                <div class="col bg-dark mx-auto my-auto p-2 col-md-4">
                                     <div id="noIncomeFound" class="mx-auto my-auto"></div>
                                     <canvas id="incomeChart"></canvas>
                                 </div>
-                                <div class="col bg-dark mx-auto p-2">
+                                <div class="col bg-dark mx-auto p-2 col-md-4">
                                     <table id="income-table" class="table table-bordered table-dark bg-dark my-auto">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col bg-dark mx-auto p-2 col-md-4">
+                                    <table id="income-acc-table" class="table table-bordered table-dark bg-dark my-auto">
                                         <thead></thead>
                                         <tbody></tbody>
                                     </table>
@@ -86,7 +98,7 @@
                         <ul>
                             <li><a href="#tabs-1">Nunc tincidunt</a></li>
                             <li><a href="#tabs-2">Proin dolor</a></li>
-                            <!-- <li><a href="#tabs-3">Aenean lacinia</a></li> -->
+                            <li><a href="#tabs-3">Aenean lacinia</a></li>
                         </ul>
                         <div id="tabs-1">
                             <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
@@ -94,10 +106,10 @@
                         <div id="tabs-2">
                             <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
                         </div>
-                        <!-- <div id="tabs-3">
+                        <div id="tabs-3">
                             <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
                             <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -140,6 +152,7 @@
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             fetchBudgetAnalytics(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
+            fetchAccList(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
         }
 
         $('#reportrange').daterangepicker({
@@ -160,7 +173,8 @@
         $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
             date_from = picker.startDate.format('YYYY-MM-DD');
             date_to = picker.endDate.format('YYYY-MM-DD');
-            fetchBudgetAnalytics(date_from, date_to)
+            fetchBudgetAnalytics(date_from, date_to);
+            fetchAccList(date_from, date_to);
         });
 
         cb(start, end);
@@ -353,6 +367,115 @@
             });//end income pie chart
 
         }  //end fetchBudgetAnalytics method    
+
+        function fetchAccList(date_from, date_to) {
+            var expenseAccount = [];
+            var expensePercentageAcc = [];
+            var expenseTotalsAcc = [];
+
+            var incomeAccount = [];
+            var incomePercentageAcc = [];
+            var incomeTotalsAcc = [];
+            var colorsAcc = ['blue', 'red', 'green', 'yellow', '#cc65fe', '#ffce56', '#36a2eb', '#ff6384'];
+
+            // start account expense ajax and table
+            $.ajax({
+                url: 'requestHandler.php?action=accountRange&in_out=0' + 
+                '&from=' + date_from + '&to=' + date_to,
+                method: 'GET',
+                success: function(response) {
+
+                    var $expenseAccTableHead = $('#expense-acc-table thead');
+                    var $expenseAccTableBody = $('#expense-acc-table tbody');
+
+                    if (response.error) {
+                        // alert(response.error);
+                        $expenseAccTableHead.empty(); 
+                        $expenseAccTableBody.empty(); 
+                    } else {
+                        var sumTotal = 1;
+
+                        if (response.length > 0) {
+                            sumTotal = response.reduce(function (sum, res) {
+                                return sum + Number(res.total);
+                            }, 0); 
+                        }
+
+                        $expenseAccTableHead.empty(); 
+                        $expenseAccTableHead.append('<tr><th>Account</th><th>Percentage</th><th>Amount</th></tr>');
+                        $expenseAccTableBody.empty(); 
+
+                        expensePercentageAccCount = 0;
+                        
+                        $.each(response, function(index, budget) {
+                            expenseAccount.push(budget.account);
+                            expenseTotalsAcc.push(Number(budget.total));
+                            expensePercentageAcc.push(Math.round((budget.total*100)/sumTotal));
+                            var row = '<tr>' +
+                                '<td style="background-color:' + colorsAcc[expensePercentageAccCount] + '">' + budget.account + '</td>' +
+                                '<td>' + expensePercentageAcc[expensePercentageAccCount] + '%</td>' +
+                                '<td>' + budget.total + '</td>' +
+                                '</tr>';
+                            $expenseAccTableBody.append(row);
+                            
+                            expensePercentageAccCount++;
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Request failed:', error);
+                }
+            }) //end expense ajax and table
+            // start account income ajax and table
+            $.ajax({
+                url: 'requestHandler.php?action=accountRange&in_out=1' + 
+                '&from=' + date_from + '&to=' + date_to,
+                method: 'GET',
+                success: function(response) {
+
+                    var $incomeAccTableHead = $('#income-acc-table thead');
+                    var $incomeAccTableBody = $('#income-acc-table tbody');
+
+                    if (response.error) {
+                        // alert(response.error);
+                        $incomeAccTableHead.empty(); 
+                        $incomeAccTableBody.empty(); 
+                    } else {
+                        var sumTotal = 1;
+
+                        if (response.length > 0) {
+                            sumTotal = response.reduce(function (sum, res) {
+                                return sum + Number(res.total);
+                            }, 0); 
+                        }
+
+                        $incomeAccTableHead.empty(); 
+                        $incomeAccTableHead.append('<tr><th>Account</th><th>Percentage</th><th>Amount</th></tr>');
+                        $incomeAccTableBody.empty(); 
+
+                        incomePercentageAccCount = 0;
+                        
+                        $.each(response, function(index, budget) {
+                            incomeAccount.push(budget.account);
+                            incomeTotalsAcc.push(Number(budget.total));
+                            incomePercentageAcc.push(Math.round((budget.total*100)/sumTotal));
+                            var row = '<tr>' +
+                                '<td style="background-color:' + colorsAcc[incomePercentageAccCount] + '">' + budget.account + '</td>' +
+                                '<td>' + incomePercentageAcc[incomePercentageAccCount] + '%</td>' +
+                                '<td>' + budget.total + '</td>' +
+                                '</tr>';
+                            $incomeAccTableBody.append(row);
+                            
+                            incomePercentageAccCount++;
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Request failed:', error);
+                }
+            }) //end account income ajax and table
+            console.log(expenseAccount);
+        }
         $( "#budget-tabs" ).tabs();
         $( "#tabs" ).tabs();
     }); //end js

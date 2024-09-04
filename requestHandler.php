@@ -47,11 +47,17 @@ if ($action === 'addCategory') {
 } else if ($action === 'analyticsBudget') {
     $controller = new BudgetController();
     $controller->getStatsTimeframe($in_out, $date_from, $date_to);
-
+} else if ($action === 'accountRange') {
+    $controller = new BudgetController();
+    $controller->getAccTimeframe($in_out, $date_from, $date_to);
 //account
 } else if ($action === 'getAccount') {
     $controller = new AccountController();
     $controller->getAll();
+//apparel
+} else if ($action === 'getByType') {
+    $controller = new ApparelController();
+    $controller->getAllByType($id);
 } else {
     echo 'Invalid action.';
 }

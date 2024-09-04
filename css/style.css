@@ -36,6 +36,14 @@ body {
     background-color: black;
 }
 
+/* #expense-tab {
+    max-height: 500px;
+} */
+
+/* canvas {
+    max-height: 20px;
+} */
+
 footer {
     text-align: center;
     padding: 5px;

@@ -7,6 +7,13 @@ class Apparel extends Dbh {
         return $stmt->fetchAll();
     }
 
+    protected function byType($id) {
+        $sql = "SELECT * FROM apparel where type_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll();
+    }
+
     protected function one($id) {
        $sql = "SELECT * FROM apparel WHERE id = ?";
        $stmt = $this->connect()->prepare($sql);
