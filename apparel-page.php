@@ -4,18 +4,8 @@
 
 <div class="container-fluid">
     <h1 class="title-text">Apparels</h1>
+    <div class="title-text"><a id="addApparelBtn" class="btn rounded" href="addApparel.php">Add Apparel</a></div>
 
-    <!-- <table class="table table-bordered" id="category-list">
-        <thead>    
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th colspan=2>Edit/Delete</th>
-            </tr> 
-        </thead>   
-        <tbody>
-        </tbody>
-    </table> -->
     <div class="row">
     <div id="apparel-type-options" class="col-3">
             <!-- Image with an associated map -->
@@ -40,6 +30,7 @@
             </map>
         </div>
         <div id="apparel-type-table" class="col">
+            <div id="apparel-type" class="text-center"></div>
             <table id="apparel-table" class="table table-bordered table-dark my-auto text-center">
                 <thead></thead>
                 <tbody></tbody>
@@ -69,12 +60,13 @@
                     if (response.error) {
                         $apparelTableHead.empty(); 
                         $apparelTableBody.empty(); 
+                        $('#apparel-type').empty();
                         alert(response.error);
                     } else {
                         $apparelTableHead.empty(); 
                         $apparelTableHead.append('<tr><th>Date</th><th>Note</th><th>Color</th><th>Action</th></tr>');
                         $apparelTableBody.empty(); 
-                        
+                        $('#apparel-type').html('HEAD');
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
@@ -107,12 +99,13 @@
                     if (response.error) {
                         $apparelTableHead.empty(); 
                         $apparelTableBody.empty(); 
+                        $('#apparel-type').empty();
                         alert(response.error);
                     } else {
                         $apparelTableHead.empty(); 
                         $apparelTableHead.append('<tr><th>Date</th><th>Note</th><th>Color</th><th>Action</th></tr>');
                         $apparelTableBody.empty(); 
-                        
+                        $('#apparel-type').html('TOP');
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
@@ -145,12 +138,13 @@
                     if (response.error) {
                         $apparelTableHead.empty(); 
                         $apparelTableBody.empty(); 
+                        $('#apparel-type').empty();
                         alert(response.error);
                     } else {
                         $apparelTableHead.empty(); 
                         $apparelTableHead.append('<tr><th>Date</th><th>Note</th><th>Color</th><th>Action</th></tr>');
                         $apparelTableBody.empty(); 
-                        
+                        $('#apparel-type').html('BOTTOM');
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
@@ -183,12 +177,13 @@
                     if (response.error) {
                         $apparelTableHead.empty(); 
                         $apparelTableBody.empty(); 
+                        $('#apparel-type').empty();
                         alert(response.error);
                     } else {
                         $apparelTableHead.empty(); 
                         $apparelTableHead.append('<tr><th>Date</th><th>Note</th><th>Color</th><th>Action</th></tr>');
                         $apparelTableBody.empty(); 
-                        
+                        $('#apparel-type').html('ARM');
                         $.each(response, function(index, apparel) {
                             var row = '<tr>' +
                                 '<td>' + apparel.purchased_date + '</td>' +
