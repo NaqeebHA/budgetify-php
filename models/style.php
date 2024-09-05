@@ -4,9 +4,7 @@ class Style extends Dbh {
      public function all() {
          $sql = "SELECT * FROM Style";
          $stmt = $this->connect()->query($sql);
-         while($row = $stmt->fetch()) {
-            echo $row['name'] . '<br>';
-         }
+         return $stmt->fetchAll();
      }
 
      public function add($newStyle) {

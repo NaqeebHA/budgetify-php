@@ -45,7 +45,7 @@
     $(document).ready(function() {
         //get accounts
         $.ajax({
-            url: 'requestHandler.php?action=getAccount',
+            url: 'requestHandler.php?action=getName&className=account',
             method: 'GET',
             dataType: 'json',
             success: function(data)  {

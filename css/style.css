@@ -27,31 +27,38 @@ body {
     outline: solid rgb(180, 0, 0) 1px;
 }
 
+#body-image {
+     max-height: 450px; 
+     width: auto;
+    outline:solid blue 5px
+}
 #addBudgetBtn:hover {
     color:rgb(180, 0, 0);
     background-color: white;
 }
 
 #addApparelBtn {
-    background-color: aqua;
-    color: black;
+    background-color: blue;
+    color: white;
     font-weight: bolder;
     text-align: center;
     padding: auto;
-    outline: solid black 2px;
+    outline: solid white 2px;
     text-align: center;
 }
 
 #addApparelBtn:hover {
     background-color: white;
+    color: blue;
+    outline: solid blue 2px;
 }
 
 #apparel-type {
-    color: black;
+    color: white;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bolder;
     font-style: italic;
-    background-color: aquamarine;
+    background-color: blue;
 }
 
 .table {

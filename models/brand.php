@@ -4,9 +4,7 @@ class Brand extends Dbh {
      public function all() {
          $sql = "SELECT * FROM Brand";
          $stmt = $this->connect()->query($sql);
-         while($row = $stmt->fetch()) {
-            echo $row['name'] . '<br>';
-         }
+         return $stmt->fetchAll();
      }
 
      public function add($newBrand) {

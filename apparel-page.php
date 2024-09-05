@@ -9,7 +9,7 @@
     <div class="row">
     <div id="apparel-type-options" class="col-3">
             <!-- Image with an associated map -->
-            <img src="/img/h.png" usemap="#bodymap" alt="Body Image" style="max-height: 450px; width: auto; outline:solid yellow 5px" class="rounded-5">
+            <img id="body-image" src="/img/h.png" usemap="#bodymap" alt="Body Image" class="rounded-5">
 
             <!-- Define the map and clickable areas -->
             <map name="bodymap">

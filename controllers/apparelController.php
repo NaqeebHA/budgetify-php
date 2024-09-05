@@ -44,7 +44,7 @@ class ApparelController extends Apparel {
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     }
 
@@ -93,7 +93,7 @@ class ApparelController extends Apparel {
                 $arr[$key] = $value;
             }
             try {
-                $this->add($arr['name'], $arr['type'], $arr['color'], $arr['date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $attachment, $arr['budget']);
+                $this->add($arr['note'], $arr['type'], $arr['color'], $arr['purchased_date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $attachment, $arr['budget']);
                 $response = ['success' => true];
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -103,7 +103,7 @@ class ApparelController extends Apparel {
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     } 
 
@@ -142,22 +142,23 @@ class ApparelController extends Apparel {
                 }
                 $arr[$key] = $value;
             }
+            // echo json_encode($_FILES['attachment']);
             try {
                 if ($attachment != NULL) {
-                    $this->update($id, $arr['name'], $arr['type'], $arr['color'], $arr['date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $attachment, $arr['budget']);
+                    $this->update($id, $arr['note'], $arr['type'], $arr['color'], $arr['purchased_date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $arr['budget'], $attachment);
                 } else {
-                    $this->updateWithoutAttachment($id, $arr['name'], $arr['type'], $arr['color'], $arr['date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $arr['budget']);
+                    $this->updateWithoutAttachment($id, $arr['note'], $arr['type'], $arr['color'], $arr['purchased_date'], $arr['qty'], $arr['price'], $arr['brand'], $arr['style'], $arr['desc'], $arr['budget']);
                 }
                 $response = ['success' => true];
             } catch (Exception $e) {
-                echo $e->getMessage();
-                $response = ['error' => 'Failed to add Apparel'];
+                $error = $e->getMessage();
+                $response = ['error' => "Failed to edit Apparel: $error"];
             } finally {
                 header('Content-Type: application/json');
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     }
 
@@ -174,7 +175,7 @@ class ApparelController extends Apparel {
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     }
 }

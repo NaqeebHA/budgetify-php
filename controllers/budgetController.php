@@ -34,7 +34,7 @@ class BudgetController extends Budget {
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     }
 
@@ -103,7 +103,7 @@ class BudgetController extends Budget {
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     } 
 
@@ -151,13 +151,13 @@ class BudgetController extends Budget {
                 $response = ['success' => true];
             } catch (Exception $e) {
                 echo $e->getMessage();
-                $response = ['error' => 'Failed to add budget'];
+                $response = ['error' => 'Failed to edit budget'];
             } finally {
                 header('Content-Type: application/json');
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     }
 
@@ -174,7 +174,7 @@ class BudgetController extends Budget {
                 echo json_encode($response);
             }
         } else {
-            echo 'Invalid request method.';
+            echo json_encode(["error" => 'Invalid request method.']);
         } 
     }
 }

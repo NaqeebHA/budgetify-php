@@ -8,8 +8,10 @@
 
     <div class="col-lg-6 bg-dark text-light rounded-5 mx-auto p-4">
         <form id="editBudget" class="text-center" enctype="multipart/form-data">
-            <label for="id">Id: </label><br>
-            <input id="id" name="id" type="number" readonly /><br>
+            <div hidden="true">
+                <label for="id">Id: </label><br>
+                <input id="id" name="id" type="number" readonly /><br>
+            </div> 
             <?php include 'template/budgetForm.php'; ?>
             <div id=imgDiv class="mb-3">
                 <img id="attachmentPhoto" class="rounded" style="width: 400px;">

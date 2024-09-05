@@ -474,7 +474,6 @@
                     console.error('Request failed:', error);
                 }
             }) //end account income ajax and table
-            console.log(expenseAccount);
         }
         $( "#budget-tabs" ).tabs();
         $( "#tabs" ).tabs();

@@ -11,7 +11,7 @@ $in_out = isset($_GET['in_out']) ? intval($_GET['in_out']) : '';
 $date_from = isset($_GET['from']) ? $_GET['from'] : '';
 $date_to = isset($_GET['to']) ? $_GET['to'] : '';
 $type_id = isset($_GET['type']) ? intval($_GET['type']) : '';
-$className = isset($_GET['className']) ? intval($_GET['className']) : '';
+$className = isset($_GET['className']) ? ($_GET['className']) : '';
 
 //category
 if ($action === 'addCategory') {
@@ -48,7 +48,7 @@ if ($action === 'addCategory') {
     $controller->deleteBudget($id);
 } else if ($action === 'analyticsBudget') {
     $controller = new BudgetController();
-    $controller->getStatsTimeframe($type_id, $date_from, $date_to);
+    $controller->getStatsTimeframe($in_out, $date_from, $date_to);
 } else if ($action === 'accountRange') {
     $controller = new BudgetController();
     $controller->getAccTimeframe($in_out, $date_from, $date_to);
@@ -92,7 +92,7 @@ if ($action === 'addCategory') {
     $controller->deleteApparel($id);
 } else if ($action === 'analyticsApparel') {
     $controller = new ApparelController();
-    $controller->getTypeStatsTimeframe($in_out, $date_from, $date_to);
+    $controller->getTypeStatsTimeframe($type_id, $date_from, $date_to);
 
 // else
 } else {

@@ -22,7 +22,7 @@ class Apparel extends Dbh {
    }
 
     protected function byTypeStatsTimeframe($type_id, $from, $to) {
-        $sql = "SELECT appType.name as 'type', COUNT(appType.name) as total FROM apparel app JOIN apparel_type appType 
+        $sql = "SELECT appType.name as type, COUNT(appType.name) as total FROM apparel app JOIN apparel_type appType 
                 ON app.type_id = appType.id 
                 WHERE DATE(app.purchased_date) BETWEEN ? AND ? 
                 AND app.type_id = ? 
@@ -33,10 +33,10 @@ class Apparel extends Dbh {
         return $stmt->fetchAll();
     } 
 
-    protected function add($name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget) {
-        $sql = "INSERT INTO apparel(name, type_id, color, purchased_date, qty, price, brand_id, style_id, description, attachment, budget_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    protected function add($note, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget) {
+        $sql = "INSERT INTO apparel(note, type_id, color, purchased_date, qty, price, brand_id, style_id, description, attachment, budget_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget]);
+        $stmt->execute([$note, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget]);
     }
 
     protected function delete($id) {
@@ -51,15 +51,15 @@ class Apparel extends Dbh {
         return $stmt->execute([$id]);
     }
 
-    protected function update($id, $name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget) {
-       $sql = "UPDATE `apparel` SET 'name' = ?, type_id = ?, color = ?, 'date' = ?, qty = ?, price = ?, brand = ?, style_id = ?, description = ?, attachment = ?, budget_id = ? WHERE `id` = ?";
+    protected function update($id, $note, $type, $color, $purchased_date, $qty, $price, $brand, $style, $desc, $budget, $attachment) {
+       $sql = "UPDATE `apparel` SET note = ?, type_id = ?, color = ?, purchased_date = ?, qty = ?, price = ?, brand_id = ?, style_id = ?, description = ?, attachment = ?, budget_id = ? WHERE `id` = ?";
        $stmt = $this->connect()->prepare($sql);
-       $stmt->execute([$name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $attachment, $budget, $id]);
+       $stmt->execute([$note, $type, $color, $purchased_date, $qty, $price, $brand, $style, $desc, $attachment, $budget, $id]);
     }
 
-    protected function updateWithoutAttachment($id, $name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $budget) {
-        $sql = "UPDATE `budget` SET 'name' = ?, type_id = ?, color = ?, 'date' = ?, qty = ?, price = ?, brand = ?, style_id = ?, description = ?, budget_id = ? WHERE `id` = ?";
+    protected function updateWithoutAttachment($id, $note, $type, $color, $purchased_date, $qty, $price, $brand, $style, $desc, $budget) {
+        $sql = "UPDATE apparel SET note = ?, type_id = ?, color = ?, purchased_date = ?, qty = ?, price = ?, brand_id = ?, style_id = ?, description = ?, budget_id = ? WHERE `id` = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$name, $type, $color, $date, $qty, $price, $brand, $style, $desc, $budget, $id]);
+        $stmt->execute([$note, $type, $color, $purchased_date, $qty, $price, $brand, $style, $desc, $budget, $id]);
     }
 }
